@@ -32,7 +32,7 @@ services:
 
   kafka-topics-creator:
     build:
-      context: schemas/kafka
+      context: kafka
       dockerfile: Dockerfile
     container_name: kafka-topics-creator
     depends_on:
