@@ -1,0 +1,43 @@
+{
+  "TableName": "customer_tb",
+  "KeySchema": [
+    {
+      "KeyType": "HASH",
+      "AttributeName": "partition_id_key"
+    },
+    {
+      "KeyType": "RANGE",
+      "AttributeName": "sort_key"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "partition_id_key",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "sort_key",
+      "AttributeType": "S"
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST",
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "customer_gsi",
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "KeySchema": [
+        {
+          "AttributeName": "sort_key",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "partition_id_key",
+          "KeyType": "RANGE"
+        }
+      ],
+      "BillingMode": "PAY_PER_REQUEST"
+    }
+  ]
+}
