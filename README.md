@@ -1,2 +1,3 @@
 # fake-onboarding
-asdasd
+
+file:///home/freeman/Downloads/Untitled Diagram.drawio.png
