@@ -1,0 +1,62 @@
+version: "3.1"
+
+services:
+  zookeeper:
+    image: "confluentinc/cp-zookeeper:${CONFLUENT_PLATFORM_VERSION}"
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    hostname: zookeeper
+    ports:
+      - 32181:32181
+    networks:
+      - local-network
+
+  kafka:
+    image: "confluentinc/cp-kafka:${CONFLUENT_PLATFORM_VERSION}"
+    container_name: kafka
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_HOST://kafka:29092
+      LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPICS_REPLICATION_FACTOR: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+    networks:
+      - local-network
+
+  kafka-topics-creator:
+    build:
+      context: schemas/kafka
+      dockerfile: Dockerfile
+    container_name: kafka-topics-creator
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      ZOOKEEPER_HOSTS: "zookeeper:32181"
+      KAFKA_TOPICS: "customer_want_creditcard"
+    networks:
+      - local-network
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop_app
+    networks:
+      - local-network
+    depends_on:
+      - kafka
+      - kafka-topics-creator
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+
+networks:
+  local-network:
+    driver: bridge
