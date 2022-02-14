@@ -57,6 +57,31 @@ services:
     environment:
       KAFKA_BROKERCONNECT: kafka:29092
 
+  localstack:
+    container_name: localstack
+    image: localstack/localstack
+    hostname: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=${SERVICES}
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=foo
+      - AWS_SECRET_ACCESS_KEY=bar
+      # - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=localhost
+      - LAMBDA_EXECUTOR=docker
+      - LAMBDA_REMOTE_DOCKER=true
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./localstack/entrypoint.d:/docker-entrypoint-initaws.d"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - local-network
+
 networks:
   local-network:
     driver: bridge
