@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: customer-service
+
+server:
+  port: 5555
+  servlet:
+    context-path: /onboardings/v1
