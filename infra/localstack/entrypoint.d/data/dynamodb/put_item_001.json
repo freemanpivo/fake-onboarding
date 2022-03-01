@@ -7,6 +7,30 @@
             "S": "CUSTOMER#b3d45b6a-3067-40f5-bdd2-8af74b7e1fa8"
           },
           "sort_key": {
+            "S": "CUSTOMER#b3d45b6a-3067-40f5-bdd2-8af74b7e1fa8"
+          },
+          "customer_id": {
+            "S": "b3d45b6a-3067-40f5-bdd2-8af74b7e1fa8"
+          },
+          "document_id": {
+            "S": "60763891096"
+          },
+          "name": {
+            "S": "Alambrado Amaral"
+          },
+          "email": {
+            "S": "alambrado@amaral.com"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "partition_id_key": {
+            "S": "CUSTOMER#b3d45b6a-3067-40f5-bdd2-8af74b7e1fa8"
+          },
+          "sort_key": {
             "S": "DOCUMENT_ID#60763891096"
           },
           "customer_id": {
