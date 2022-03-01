@@ -25,12 +25,12 @@ public class DynamoDBConfiguration {
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
         AmazonDynamoDB client = new AmazonDynamoDBClient(awsCredentials());
-
-        if (System.getenv(ENDPOINT_ENV) != null || !System.getenv(ENDPOINT_ENV).isBlank()) {
-            log.info("working at localhost environment. configuring endpoint-url...");
-            client.setEndpoint(System.getenv(ENDPOINT_ENV));
+        if (System.getenv(ENDPOINT_ENV) == null) {
+            return client;
         }
 
+        log.info("working at localhost environment. configuring endpoint-url...[{}]", System.getenv(ENDPOINT_ENV));
+        client.setEndpoint(System.getenv(ENDPOINT_ENV));
         return client;
     }
 
