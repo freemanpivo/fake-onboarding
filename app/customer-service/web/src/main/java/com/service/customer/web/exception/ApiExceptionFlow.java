@@ -2,6 +2,7 @@ package com.service.customer.web.exception;
 
 import com.service.customer.domain.exception.BadRequestException;
 import com.service.customer.domain.exception.NotFoundException;
+import com.service.customer.domain.exception.ServiceUnavailableException;
 import com.service.customer.domain.exception.UnprocessableEntityException;
 import com.service.customer.web.dto.CollectionErrorResponse;
 import com.service.customer.web.dto.ErrorDto;
@@ -40,5 +41,13 @@ public class ApiExceptionFlow extends ResponseEntityExceptionHandler {
         final var responseBody = new CollectionErrorResponse(List.of(responseObject));
 
         return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler
+    protected ResponseEntity<Object> handleServiceUnavailable(ServiceUnavailableException ex, WebRequest request) {
+        final var responseObject = new ErrorDto(ex.getCode(), ex.getMessage());
+        final var responseBody = new CollectionErrorResponse(List.of(responseObject));
+
+        return handleExceptionInternal(ex, responseBody, new HttpHeaders(), HttpStatus.SERVICE_UNAVAILABLE, request);
     }
 }
