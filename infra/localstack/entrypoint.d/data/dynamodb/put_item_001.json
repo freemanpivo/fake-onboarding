@@ -20,6 +20,9 @@
           },
           "email": {
             "S": "alambrado@amaral.com"
+          },
+          "birthdate": {
+            "S": "1990-01-01"
           }
         }
       }
@@ -44,6 +47,9 @@
           },
           "email": {
             "S": "alambrado@amaral.com"
+          },
+          "birthdate": {
+            "S": "1990-01-01"
           }
         }
       }

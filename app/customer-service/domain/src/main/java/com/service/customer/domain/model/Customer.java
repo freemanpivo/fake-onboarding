@@ -15,5 +15,6 @@ public class Customer {
     String completeName;
     String personalDocumentIdentifierNumber;
     String birthDate;
+    String email;
     LocalDateTime onboardingDate = LocalDateTime.now();
 }

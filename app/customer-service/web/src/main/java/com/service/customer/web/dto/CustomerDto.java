@@ -16,6 +16,8 @@ public class CustomerDto {
     String completeName;
     @JsonProperty("document_number_identifier")
     String personalDocumentIdentifierNumber;
+    @JsonProperty("email_address")
+    String email;
     @JsonProperty("birth_date")
     String birthDate;
 }

@@ -10,6 +10,7 @@ public interface CustomerTableModelMapper {
     @Mapping(source = "customerId", target = "id")
     @Mapping(source = "personalDocumentIdentifier", target = "personalDocumentIdentifierNumber")
     @Mapping(source = "name", target = "completeName")
-    @Mapping(source = "email", target = "birthDate") // TODO: FIXME
+    @Mapping(source = "birthDate", target = "birthDate")
+    @Mapping(source = "email", target = "email")
     Customer toModel(CustomerTable item);
 }
