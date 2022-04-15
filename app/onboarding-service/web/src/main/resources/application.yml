@@ -1,0 +1,10 @@
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: onboarding-service
+
+server:
+  port: 5554
+  servlet:
+    context-path: /onboardings/v1
